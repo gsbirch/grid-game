@@ -31,10 +31,10 @@ public class ResponseManager : MonoBehaviour {
     ITargettable Source {
         get => actualSource;
         set {
-            if (value == null)
-                Debug.Log("setting source to null");
-            else
-                Debug.Log("Setting response source to " + ((MonoBehaviour)value).name);
+            //if (value == null)
+                //Debug.Log("setting source to null");
+            //else
+                //Debug.Log("Setting response source to " + ((MonoBehaviour)value).name);
             actualSource = value;
         }
 
@@ -53,7 +53,7 @@ public class ResponseManager : MonoBehaviour {
         // Ensure no dangling state from a previous response
         CleanupResponsePhase();
 
-        Debug.Log("Initializing response selection, responding to " + ((MonoBehaviour)source).name);
+        //Debug.Log("Initializing response selection, responding to " + ((MonoBehaviour)source).name);
         GameManager.Instance.GameState = GameState.PlayerTurnResponse;
         this.amount = amount;
         this.Source = source;
@@ -93,7 +93,7 @@ public class ResponseManager : MonoBehaviour {
             return;
         }
 
-        Debug.Log("Confirming response to " + ((MonoBehaviour)Source).name);
+        //Debug.Log("Confirming response to " + ((MonoBehaviour)Source).name);
 
         if (amount == int.MinValue) {
             Debug.LogError("ConfirmResponse called at incorrect time");

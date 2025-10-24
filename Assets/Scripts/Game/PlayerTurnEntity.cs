@@ -91,7 +91,30 @@ public class PlayerTurnEntity : BaseTargettable, ITurnEntity
 
     public void StartOfTurn() {
         RemoveStatus(Game.STATUS_Phased, 1);
-        RemoveStatus(Game.STATUS_BloodMoon, 1);
+        RemoveStatus(Game.STATUS_Defend, 1);
+
+        // Update ATK/DEF based on MOD ATK/DEF
+        if (GetStacksOfStatus(Game.STATUS_ModAttack) != 0) {
+            if (GetStacksOfStatus(Game.STATUS_ModAttack) > 0) {
+                ApplyStatus(Game.STATUS_Attack, GetStacksOfStatus(Game.STATUS_ModAttack));
+                RemoveStatus(Game.STATUS_ModAttack, GetStacksOfStatus(Game.STATUS_ModAttack));
+            }
+            else {
+                RemoveStatus(Game.STATUS_Attack, -GetStacksOfStatus(Game.STATUS_ModAttack));
+                ApplyStatus(Game.STATUS_ModAttack, -GetStacksOfStatus(Game.STATUS_ModAttack));
+            }
+        }
+        if (GetStacksOfStatus(Game.STATUS_ModDefense) != 0) {
+            if (GetStacksOfStatus(Game.STATUS_ModDefense) > 0) {
+                ApplyStatus(Game.STATUS_Defense, GetStacksOfStatus(Game.STATUS_ModDefense));
+                RemoveStatus(Game.STATUS_ModDefense, GetStacksOfStatus(Game.STATUS_ModDefense));
+            }
+            else {
+                RemoveStatus(Game.STATUS_Defense, -GetStacksOfStatus(Game.STATUS_ModDefense));
+                ApplyStatus(Game.STATUS_ModDefense, -GetStacksOfStatus(Game.STATUS_ModDefense));
+            }
+        }
+        
         stats[GameManager.AP_STAT] = 3;
         stats[GameManager.MOVEMENT_STAT] = 2;
     }
@@ -225,6 +248,7 @@ public class PlayerTurnEntity : BaseTargettable, ITurnEntity
                     break;
                 case Effect.DealDamage:
                     int amt = int.Parse(effect.value);
+                    amt += GetStacksOfStatus(Game.STATUS_Attack);
                     if (targetIsSelf)
                         Debug.LogWarning("Attempting to deal damage to self, no cards do so (yet!)");
                     else {

@@ -14,8 +14,6 @@ public class EnemyTurnEntity : BaseTargettable, ITurnEntity
     Dictionary<string, int> stats = new();
     public event Action<string, int, int> OnStatChanged;
 
-    public Dictionary<StatusEffect, int> statuses = new();
-
     public TextMeshPro statusText;
 
     private void Start() {
@@ -44,6 +42,28 @@ public class EnemyTurnEntity : BaseTargettable, ITurnEntity
     }
 
     public void StartOfTurn() {
+        // Update ATK/DEF based on MOD ATK/DEF
+        if (GetStacksOfStatus(Game.STATUS_ModAttack) != 0) {
+            if (GetStacksOfStatus(Game.STATUS_ModAttack) > 0) {
+                ApplyStatus(Game.STATUS_Attack, GetStacksOfStatus(Game.STATUS_ModAttack));
+                RemoveStatus(Game.STATUS_ModAttack, GetStacksOfStatus(Game.STATUS_ModAttack));
+            }
+            else {
+                RemoveStatus(Game.STATUS_Attack, -GetStacksOfStatus(Game.STATUS_ModAttack));
+                ApplyStatus(Game.STATUS_ModAttack, -GetStacksOfStatus(Game.STATUS_ModAttack));
+            }
+        }
+        if (GetStacksOfStatus(Game.STATUS_ModDefense) != 0) {
+            if (GetStacksOfStatus(Game.STATUS_ModDefense) > 0) {
+                ApplyStatus(Game.STATUS_Defense, GetStacksOfStatus(Game.STATUS_ModDefense));
+                RemoveStatus(Game.STATUS_ModDefense, GetStacksOfStatus(Game.STATUS_ModDefense));
+            }
+            else {
+                RemoveStatus(Game.STATUS_Defense, -GetStacksOfStatus(Game.STATUS_ModDefense));
+                ApplyStatus(Game.STATUS_ModDefense, -GetStacksOfStatus(Game.STATUS_ModDefense));
+            }
+        }
+
         GameManager.Instance.GameState = GameState.EnemyTurn;
         return;
     }
@@ -105,6 +125,7 @@ public class EnemyTurnEntity : BaseTargettable, ITurnEntity
                     break;
                 case Effect.DealDamage:
                     int amt = int.Parse(effect.value);
+                    amt += GetStacksOfStatus(Game.STATUS_Attack);
                     if (targetIsSelf)
                         Debug.LogWarning("Attempting to deal damage to self, no cards do so (yet!)");
                     else {

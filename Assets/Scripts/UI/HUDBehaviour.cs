@@ -144,7 +144,7 @@ public class HUDBehaviour : MonoBehaviour
         // update status text
         statusText.text = "";
         foreach (var status in PlayerTurnEntity.Instance.statuses) {
-            statusText.text += status.Key.ToIcon() + (status.Value > 1 ? status.Value : "");
+            statusText.text += status.Key.ToIcon() + (status.Value != 1 ? status.Value : "");
         }
 
     }

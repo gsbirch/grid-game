@@ -12,6 +12,7 @@ public class StatusEffect : ScriptableObject
     public Sprite icon;
 
     public int maxStacks = 99;
+    public bool canGoNegative = false;
 
     public string ToIcon() {
         return $"<sprite name=\"{icon.name}\">";

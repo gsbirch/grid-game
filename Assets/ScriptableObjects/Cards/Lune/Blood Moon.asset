@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Blood Moon
   description: 'Phase.
 
-    All attacks this turn gain +1 damage'
+    All attacks this turn gain +3 damage.'
   artwork: {fileID: 21300000, guid: 49ce7bab055d3024093d19f00a02f9ac, type: 3}
   rarity: 0
   phase: 1
@@ -23,10 +23,13 @@ MonoBehaviour:
   range: 0
   targets: SELF
   keywords: Phase
+  preprocess: []
   effects:
   - effect: 0
     value: 
   - effect: 4
-    value: STATUS_BloodMoon
-  - effect: 4
     value: STATUS_Phased
+  - effect: 4
+    value: STATUS_Attack 3
+  - effect: 4
+    value: STATUS_ModAttack -3

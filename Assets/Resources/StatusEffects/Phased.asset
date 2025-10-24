@@ -15,3 +15,5 @@ MonoBehaviour:
   statusName: Phased
   description: You may not play any more cards with Phase this turn
   icon: {fileID: 2097179606, guid: 9e49b8c342eb2ad48827c84c683403bb, type: 3}
+  maxStacks: 1
+  canGoNegative: 0

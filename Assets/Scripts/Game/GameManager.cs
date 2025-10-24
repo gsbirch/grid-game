@@ -10,6 +10,7 @@ public enum GameState {
     PlayerTurnMovement,
     PlayerTurnTarget,
     PlayerTurnResponse,
+    PlayerTurnCardRecovery,
     EnemyTurn,
     UI,
     Paused,

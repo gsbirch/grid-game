@@ -183,7 +183,15 @@ public class HUDBehaviour : MonoBehaviour
 
     public void ShowCardList(CardPhase phase) {
         cardListPanel.Clear();
+        List<Card> cardsToRender = new List<Card>();
         foreach (Card c in PlayerTurnEntity.Instance.hand) {
+            if (c.phase != phase) continue;
+            cardsToRender.Add(c);
+        }
+        // sort added cards by the cost of the card
+        cardsToRender.Sort((a, b) => a.apCost.CompareTo(b.apCost));
+
+        foreach (Card c in cardsToRender) {
             if (c.phase != phase) continue;
 
             VisualElement cardEntry = new VisualElement();

@@ -170,7 +170,8 @@ public class PlayerTurnEntity : BaseTargettable, ITurnEntity
             ModifyStat(GameManager.METEOR_STAT, p.GetKeywordValue(Game.KEYWORD_SpendMeteor));
         }
 
-        if (GameManager.Instance.GameState != GameState.PlayerTurnResponse)
+        if (GameManager.Instance.GameState != GameState.PlayerTurnResponse &&
+            GameManager.Instance.GameState != GameState.PlayerTurnCardRecovery)
             GameManager.Instance.GameState = GameState.PlayerTurnDefault;
     }
     
@@ -288,6 +289,10 @@ public class PlayerTurnEntity : BaseTargettable, ITurnEntity
                     }
                     break;
                 case Effect.RecoverCard:
+                    if (!targetIsSelf) {
+                        Debug.LogWarning("RecoverCard effect applied to target instead of self!");
+                    }
+                    CardRecoverManager.Instance.InitalizeCardRecovery(int.Parse(effect.value));
                     break;
                 case Effect.Move:
                     break;
@@ -387,5 +392,17 @@ public class PlayerTurnEntity : BaseTargettable, ITurnEntity
 
     public bool HasFlag(string flag) {
         return flags.Contains(flag.ToLower());
+    }
+
+    // Recover a card from the discard pile
+    // There MUST be a copy in the discard pile
+    public void RecoverCard(Card c) {
+        if (!discard.Contains(c)) {
+            Debug.LogError("Attempted to recover a card that is not in the discard pile: " + c.cardName);
+            return;
+        }
+        discard.Remove(c);
+        hand.Add(c);
+        HUDBehaviour.Instance.UpdateUI();
     }
 }

@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 1440027049375269960, guid: e55810d0e746270459a808f12320998e, type: 3}
+  gameState: 0
 --- !u!4 &118418199
 Transform:
   m_ObjectHideFlags: 0
@@ -2232,6 +2233,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38e83928cc90e8f48b4564cc3bcbfe63, type: 2}
   - {fileID: 11400000, guid: 215f82054321e044caa156ad87031bef, type: 2}
   - {fileID: 11400000, guid: 215f82054321e044caa156ad87031bef, type: 2}
+  - {fileID: 11400000, guid: cac7c10c3aa67ef4d96f6bbc9b094c3d, type: 2}
   hand: []
   discard: []
 --- !u!114 &2108887971

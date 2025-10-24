@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 
 // This class holds all the "Game" information about the enemy
-public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
+public class EnemyTurnEntity : BaseTargettable, ITurnEntity
 {
     public Enemy Enemy;
 
@@ -65,7 +65,7 @@ public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         InitiativeManager.Instance.PassTurn();
     }
 
-    public int GetStat(string stat) {
+    public override int GetStat(string stat) {
         if (!stats.ContainsKey(stat)) {
             Debug.LogError("Stat " + stat + " does not exist!");
             return -1;
@@ -73,7 +73,7 @@ public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         return stats[stat];
     }
 
-    public void ModifyStat(string stat, int amount) {
+    public override void ModifyStat(string stat, int amount) {
         if (!stats.ContainsKey(stat)) {
             Debug.LogError("Stat " + stat + " does not exist!");
             return;
@@ -144,7 +144,7 @@ public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         }
     }
 
-    public void SetSelectionState(SelectArrowState state) {
+    public override void SetSelectionState(SelectArrowState state) {
         selectArrow.SetState(state);
     }
 
@@ -152,28 +152,13 @@ public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         return Enemy.abilities[UnityEngine.Random.Range(0, Enemy.abilities.Count)];
     }
 
-    public void ApplyStatus(StatusEffect status, int count) {
-        if (statuses.ContainsKey(status)) {
-            statuses[status] += count;
-        }
-        else {
-            statuses[status] = count;
-        }
-        if (statuses[status] > status.maxStacks)
-            statuses[status] = status.maxStacks;
+    public override void ApplyStatus(StatusEffect status, int count) {
+        base.ApplyStatus(status, count);
         UpdateStatusesText();
     }
 
-    public bool HasStatus(StatusEffect status) {
-        return statuses.ContainsKey(status);
-    }
-
-    public void RemoveStatus(StatusEffect status, int count) {
-        if (!statuses.ContainsKey(status)) return;
-        statuses[status] -= count;
-        if (statuses[status] <= 0) {
-            statuses.Remove(status);
-        }
+    public override void RemoveStatus(StatusEffect status, int count) {
+        base.RemoveStatus(status, count);
         UpdateStatusesText();
     }
 
@@ -185,16 +170,7 @@ public class EnemyTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         statusText.text = text;
     }
 
-    public void TakeDamage(int amount, ITargettable source, bool procs) {
-        var damageScale = 1;
-        if (HasStatus(Game.STATUS_Shatter)) {
-            damageScale = 2;
-            RemoveStatus(Game.STATUS_Shatter, 1);
-        }
-        if (amount > 0) {
-            amount *= damageScale;
-        }
-        ModifyStat(GameManager.HEALTH_STAT, -amount);
-        GameManager.Instance.CreateDamageText(transform.position, -amount);
+    public override void TakeDamage(int amount, ITargettable source, bool procs) {
+        base.TakeDamage(amount, source, procs);
     }
 }

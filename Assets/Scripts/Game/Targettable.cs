@@ -21,5 +21,6 @@ public interface ITargettable
     // Add more stuff for statuses later
     void ApplyStatus(StatusEffect status, int count);
     bool HasStatus(StatusEffect status);
+    int GetStacksOfStatus(StatusEffect status);
     void RemoveStatus(StatusEffect status, int count);
 }

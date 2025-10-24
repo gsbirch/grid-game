@@ -6,7 +6,7 @@ using UnityEngine;
 // This class holds all the "Game" information about the player
 // Such as their stats, statuses, cards, etc.
 // It also respects the ITurnEntity interface so it can take turns in the initiative order
-public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
+public class PlayerTurnEntity : BaseTargettable, ITurnEntity
 {
 
     // singleton
@@ -28,8 +28,6 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
 
     Dictionary<string, int> stats = new();
     public event Action<string, int, int> OnStatChanged;
-
-    public Dictionary<StatusEffect, int> statuses = new();
 
     int bonusTargets = 0;
 
@@ -65,7 +63,7 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         };
     }
 
-    public int GetStat(string stat) {
+    public override int GetStat(string stat) {
         if (!stats.ContainsKey(stat)) {
             Debug.LogError("Stat " + stat + " does not exist!");
             return -1;
@@ -73,7 +71,7 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         return stats[stat];
     }
 
-    public void ModifyStat(string stat, int amount) {
+    public override void ModifyStat(string stat, int amount) {
         if (!stats.ContainsKey(stat)) {
             Debug.LogError("Stat " + stat + " does not exist!");
             return;
@@ -322,36 +320,21 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
         }
     }
 
-    public void SetSelectionState(SelectArrowState state) {
+    public override void SetSelectionState(SelectArrowState state) {
         Debug.LogError("PlayerTurnEntity does not have a selection state!");
     }
 
-    public void ApplyStatus(StatusEffect status, int count) {
-        if (statuses.ContainsKey(status)) {
-            statuses[status] += count;
-        }
-        else {
-            statuses[status] = count;
-        }
-        if (statuses[status] > status.maxStacks)
-            statuses[status] = status.maxStacks;
+    public override void ApplyStatus(StatusEffect status, int count) {
+        base.ApplyStatus(status, count);
         HUDBehaviour.Instance.UpdateUI();
     }
 
-    public bool HasStatus(StatusEffect status) {
-        return statuses.ContainsKey(status);
-    }
-
-    public void RemoveStatus(StatusEffect status, int count) {
-        if (!statuses.ContainsKey(status)) return;
-        statuses[status] -= count;
-        if (statuses[status] <= 0) {
-            statuses.Remove(status);
-        }
+    public override void RemoveStatus(StatusEffect status, int count) {
+        base.RemoveStatus(status, count);
         HUDBehaviour.Instance.UpdateUI();
     }
 
-    public void TakeDamage(int amount, ITargettable source, bool procs) {
+    public override void TakeDamage(int amount, ITargettable source, bool procs) {
         if (procs) {
             // check if the player has response cards left
             // we can skip responses if there's no cards
@@ -363,16 +346,11 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
             }
         }
 
-        ProcessDamage(amount, source, procs);
+        base.TakeDamage(amount, source, procs);
     }
 
     public void ProcessDamage(int amount, ITargettable source, bool procs) {
-        if (HasStatus(Game.STATUS_Defend)) {
-            amount /= 2;
-            RemoveStatus(Game.STATUS_Defend, 1);
-        }
-        ModifyStat(GameManager.HEALTH_STAT, -amount);
-        GameManager.Instance.CreateDamageText(transform.position, -amount);
+        base.TakeDamage(amount, source, procs);
     }
 
     public void AddFlag(string flag) {

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e629c9f2e8b8dc745b98f892c4863564, type: 3}
+  m_Name: ReduceDamage
+  m_EditorClassIdentifier: 
+  statusName: Reduce Damage
+  description: You ignore damage equal to the amount of stacks of this status you
+    have
+  icon: {fileID: -752734321, guid: 9e49b8c342eb2ad48827c84c683403bb, type: 3}
+  maxStacks: 99

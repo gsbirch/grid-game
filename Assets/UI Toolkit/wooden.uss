@@ -1,0 +1,130 @@
+.YellowText {
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+    color: rgb(255, 255, 0);
+    font-size: 30px;
+}
+
+.WoodButton {
+    font-size: 80px;
+    background-image: url("project://database/Assets/Graphics/Wooden%20UI/Plank_10.png?fileID=2800000&guid=78b58a63de1946b47a97a95c27b26ca8&type=3#Plank_10");
+    background-color: rgba(188, 188, 188, 0);
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    padding-top: 15px;
+    padding-right: 18px;
+    padding-bottom: 15px;
+    padding-left: 18px;
+    color: rgb(255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.NotificationText {
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    font-size: 40px;
+}
+
+.ItemSlot {
+    background-image: url("project://database/Assets/Graphics/Wooden%20UI/frame_c2_01.png?fileID=21300000&guid=c13d0c88c7613f045b293e01a691084c&type=3#frame_c2_01");
+    height: 80px;
+    width: 80px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ItemDisplay {
+    width: 90%;
+    height: 90%;
+    background-image: none;
+}
+
+.ItemCount {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-align: upper-right;
+    position: absolute;
+    right: 8px;
+    bottom: 0;
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    color: rgb(255, 255, 0);
+    font-size: 30px;
+}
+
+.ComplaintText {
+    font-size: 30px;
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    white-space: normal;
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+}
+
+.ListCardBG {
+    background-image: url("project://database/Assets/Graphics/Wooden%20UI/frame.png?fileID=2800000&guid=62d71b603abdfba47b374e31fa1ef14a&type=3#frame");
+    width: 100%;
+    -unity-slice-left: 35;
+    -unity-slice-top: 35;
+    -unity-slice-right: 35;
+    -unity-slice-bottom: 35;
+    height: 8%;
+    -unity-slice-scale: 0.3px;
+    flex-direction: row;
+}
+
+.ListCardText {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 20px;
+    -unity-font-definition: url("project://database/Assets/Graphics/Acme-Regular%20SDF.asset?fileID=11400000&guid=d06a97d70ee512743a0a0dbc79e81e0b&type=2#Acme-Regular SDF");
+    -unity-font: url("project://database/Assets/Graphics/Acme-Regular.ttf?fileID=12800000&guid=8fa6dbf40ac70cd4fa6eb2c8b857c4fe&type=3#Acme-Regular");
+    color: rgb(255, 242, 65);
+    font-size: 40px;
+    width: 80%;
+    height: 100%;
+    -unity-text-align: middle-left;
+}
+
+.OffTurnBG {
+    width: 60px;
+    height: 60px;
+    background-image: url("project://database/Assets/Graphics/Wooden%20UI/frame_c2_02.png?fileID=2800000&guid=e65203f0cfc80374082413bda5bb7b62&type=3#frame_c2_02");
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    -unity-slice-scale: 0.5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.InitiativePicture {
+    width: 90%;
+    height: 90%;
+}
+
+.OnTurnBG {
+    width: 60px;
+    height: 60px;
+    background-image: url("project://database/Assets/Graphics/Wooden%20UI/frame_c2_01.png?fileID=2800000&guid=c13d0c88c7613f045b293e01a691084c&type=3#frame_c2_01");
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    -unity-slice-scale: 0.5px;
+    align-items: center;
+    justify-content: center;
+}

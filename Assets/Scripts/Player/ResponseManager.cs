@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -45,8 +46,7 @@ public class ResponseManager : MonoBehaviour {
 
     void OnGameStateChanged(GameState oldState, GameState newState) {
         if (oldState != GameState.PlayerTurnResponse) return;
-        Player.Instance.playerControls.Player.NextButton.performed -= Skip;
-        HUDBehaviour.Instance.confirmButton.clicked -= ConfirmClicked;
+        CleanupResponsePhase();
     }
 
     public void InitializeResponseSelection(int amount, ITargettable source) {
@@ -103,15 +103,17 @@ public class ResponseManager : MonoBehaviour {
         if (c != null) {
             PlayerTurnEntity.Instance.PlayCard(c, new() { Source });
         }
+        var prevSource = (EnemyTurnEntity) Source;
+        int prevAmount = amount;
+        // Clean up, but before the enemy continues its turn
+        CleanupResponsePhase();
 
         // Only continue if source is still valid
-        if (Source != null) {
-            PlayerTurnEntity.Instance.ProcessDamage(amount, Source, true);
-            ((EnemyTurnEntity)Source).ContinueTurn();
+        // we need to use the previous source because cleanup will set it to null
+        if (prevSource != null) {
+            PlayerTurnEntity.Instance.ProcessDamage(prevAmount, prevSource, true);
+            prevSource.ContinueTurn();
         }
-
-        // Always clean up at the end
-        CleanupResponsePhase();
     }
 
 

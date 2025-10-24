@@ -149,7 +149,8 @@ public class PlayerTurnEntity : MonoBehaviour, ITurnEntity, ITargettable
             ModifyStat(GameManager.METEOR_STAT, p.GetKeywordValue(Game.KEYWORD_SpendMeteor));
         }
 
-        GameManager.Instance.GameState = GameState.PlayerTurnDefault;
+        if (GameManager.Instance.GameState != GameState.PlayerTurnResponse)
+            GameManager.Instance.GameState = GameState.PlayerTurnDefault;
     }
     
     public void PreProcessEffects(List<Card.CardEffect> effects) {

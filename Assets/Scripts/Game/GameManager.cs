@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
             OnGameStateChanged?.Invoke(previousState, gameState); // Notify subscribers of the state change
         } 
     }
+    
+    [SerializeField]
     private GameState gameState = GameState.PlayerTurnDefault;
 
     public void CreateDamageText(Vector3 position, int damageAmount) {
